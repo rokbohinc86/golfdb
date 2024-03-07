@@ -101,7 +101,7 @@ if __name__ == '__main__':
                 image_batch = images[:, batch * seq_length:, :, :, :]
             else:
                 image_batch = images[:, batch * seq_length:(batch + 1) * seq_length, :, :, :]
-            logits = model(image_batch.cuda())
+            logits = model(image_batch)
             if batch == 0:
                 probs = F.softmax(logits.data, dim=1).cpu().numpy()
             else:

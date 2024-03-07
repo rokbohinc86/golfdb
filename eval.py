@@ -33,7 +33,7 @@ def eval(model, split, seq_length, n_cpu, disp):
                 image_batch = images[:, batch * seq_length:, :, :, :]
             else:
                 image_batch = images[:, batch * seq_length:(batch + 1) * seq_length, :, :, :]
-            logits = model(image_batch.cuda())
+            logits = model(image_batch)
             if batch == 0:
                 probs = F.softmax(logits.data, dim=1).cpu().numpy()
             else:
@@ -62,7 +62,7 @@ if __name__ == '__main__':
 
     save_dict = torch.load('models/swingnet_1800.pth.tar')
     model.load_state_dict(save_dict['model_state_dict'])
-    model.cuda()
+    model
     model.eval()
     PCE = eval(model, split, seq_length, n_cpu, True)
     print('Average PCE: {}'.format(PCE))
